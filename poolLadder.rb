@@ -1,23 +1,24 @@
 require 'sinatra'
+require 'sinatra/activerecord'
+require './config/environments' #database configuration
 require 'tilt/erb'
+require './models/player'
 
 set :root, File.dirname(__FILE__)
 
 get '/' do
-  @players = fetch_player_rankings
+  @players = Player.all
   erb :index
-end
-
-def fetch_player_rankings
-  []
 end
 
 post '/' do
-  @players = fetch_player_rankings
-  playerName = params[:playerName]
-  if playerName != nil
-    @players = [playerName]
+  player = Player.new(params[:player])
+
+  unless player.name.empty?
+    unless player.save
+      "Player did not save for some reason"
+    end
   end
-  erb :index
+  redirect '/'
 end
 

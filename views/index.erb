@@ -2,22 +2,22 @@
 <html>
 <head>
   <meta charset='UTF-8'/>
-  <title><%= Pool Ladder %></title>
+  <title>Pool Ladder</title>
 </head>
 <body>
 
-<h1><%= Pool Ladder %></h1>
+<h1>Pool Ladder</h1>
 
 <% if @players.any? %>
   <ol>
-    <% @players.each do |name| %>
-        <li><%= name %></li>
+    <% @players.each do |player| %>
+        <li><%= player.name %></li>
     <% end %>
   </ol>
 <% end %>
 
 <form action="/" method="POST">
-  <label for="newPlayer">New Player:</label><input type="text" id="playerName" name="playerName">
+  <label for="playerName">New Player:</label><input type="text" id="playerName" name="player[name]">
   <input type="submit" value="New Player">
 </form>
 
