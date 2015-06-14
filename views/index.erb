@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <title><%= Pool Ladder %></title>
+</head>
+<body>
+
+<h1><%= Pool Ladder %></h1>
+
+<% if @players.any? %>
+  <ol>
+    <% @players.each do |name| %>
+        <li><%= name %></li>
+    <% end %>
+  </ol>
+<% end %>
+
+<form action="/" method="POST">
+  <label for="newPlayer">New Player:</label><input type="text" id="playerName" name="playerName">
+  <input type="submit" value="New Player">
+</form>
+
+</body>
+</html>
