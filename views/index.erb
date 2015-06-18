@@ -9,7 +9,7 @@
 <h1>Pool Ladder</h1>
 
 <% if @players.any? %>
-  <ol>
+  <ol id="playerList">
     <% @players.each do |player| %>
         <li><%= player.name %></li>
     <% end %>
