@@ -1,4 +1,4 @@
-require_relative  '../poolLadder'
+require_relative '../sportsLadder'
 require 'database_cleaner'
 
 ENV['RACK_ENV'] = 'test'

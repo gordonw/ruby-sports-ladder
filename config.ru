@@ -1,2 +1,2 @@
-require './poolLadder'
+require './sportsLadder'
 run Sinatra::Application
