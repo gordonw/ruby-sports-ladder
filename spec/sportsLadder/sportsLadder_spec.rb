@@ -1,6 +1,6 @@
 require 'spec_helper_capybara'
 
-feature'Sports Ladder Display Page' do
+feature'Sports Ladder Ladder Page' do
 
   def create_existing_players(number_of_players)
     number_of_players.times {
