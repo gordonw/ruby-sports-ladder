@@ -1,7 +1,10 @@
-require_relative '../sportsLadder'
-require 'database_cleaner'
+Bundler.require :default, :test
+require 'capybara/rspec'
+require_relative '../sports_ladder'
 
-ENV['RACK_ENV'] = 'test'
+Capybara.app = SportsLadder
+
+ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 RSpec.configure do |config|
   config.include Capybara::DSL
@@ -18,5 +21,5 @@ RSpec.configure do |config|
   end
 end
 
-Capybara.app = Sinatra::Application
+
 

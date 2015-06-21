@@ -1,7 +1,7 @@
 require 'rspec/core'
 require 'rspec/core/rake_task'
 
-require './sportsLadder.rb'
+require './sports_ladder.rb'
 
 task :default  => :spec
 

@@ -1,10 +1,10 @@
-require_relative('../spec_helper_capybara')
+require 'spec_helper_capybara'
 
-describe 'Pool Ladder Display Page', :type => :feature do
+feature'Sports Ladder Display Page' do
 
-  def create_test_players(number_of_players)
+  def create_existing_players(number_of_players)
     number_of_players.times {
-      Player.create( name: Faker.name)
+      Player.create( name: Faker::Name.name)
     }
   end
 
@@ -15,20 +15,20 @@ describe 'Pool Ladder Display Page', :type => :feature do
 
   it 'should display a page heading' do
     visit '/'
-    expect(page).to have_content('Pool Ladder')
+    expect(page).to have_selector('#pageHeading', :text => 'Pool Ladder')
   end
 
   it 'should display a list of players' do
-    create_test_players(4)
+    create_existing_players(4)
 
     visit '/'
     expect(page).to have_selector('#playerList li', :count => 4)
   end
 
   it 'should be possible to add a new player' do
-    create_test_players(2)
+    create_existing_players(2)
     visit '/'
-    new_player_name = Faker.name
+    new_player_name = Faker::Name.name
     fill_in 'playerName', :with => new_player_name
     click_button('New Player')
     expect(page).to have_selector('#playerList li', :count => 3)

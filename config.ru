@@ -1,2 +1,2 @@
-require './sportsLadder'
-run Sinatra::Application
+  require_relative 'sports_ladder'
+  run SportsLadder
