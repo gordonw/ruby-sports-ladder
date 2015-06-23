@@ -1,8 +1,8 @@
 Bundler.require :default, :test
 require 'capybara/rspec'
-require_relative '../sports_ladder'
+require_relative '../app'
 
-Capybara.app = SportsLadder
+Capybara.app = App
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 

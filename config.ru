@@ -1,2 +1,2 @@
-  require_relative 'sports_ladder'
-  run SportsLadder
+  require_relative 'app/sports_ladder'
+  run App

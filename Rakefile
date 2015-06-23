@@ -1,7 +1,8 @@
 require 'rspec/core'
 require 'rspec/core/rake_task'
+require 'sinatra/activerecord/rake'
 
-require './sports_ladder.rb'
+require './app.rb'
 
 task :default  => :spec
 

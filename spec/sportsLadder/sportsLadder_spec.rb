@@ -1,11 +1,9 @@
 require 'spec_helper_capybara'
 
-feature'Sports Ladder Ladder Page' do
+feature 'Sports Ladder Ladder Page' do
 
-  def create_existing_players(number_of_players)
-    number_of_players.times {
-      Player.create( name: Faker::Name.name)
-    }
+  def create_player_with_rank(rank)
+    Player.create(name: Faker::Name.name, rank: rank)
   end
 
   it 'should display a title' do
@@ -18,21 +16,33 @@ feature'Sports Ladder Ladder Page' do
     expect(page).to have_selector('#pageHeading', :text => 'Pool Ladder')
   end
 
-  it 'should display a list of players' do
-    create_existing_players(4)
+  it 'should display a list of players ordered by rank' do
+    player1 = create_player_with_rank(3)
+    player2 = create_player_with_rank(4)
+    player3 = create_player_with_rank(1)
+    player4 = create_player_with_rank(2)
 
     visit '/'
-    expect(page).to have_selector('#playerList li', :count => 4)
+
+    players = page.all('#playerList li')
+
+    expect(players[0].text).to eq player3.name
+    expect(players[1].text).to eq player4.name
+    expect(players[2].text).to eq player1.name
+    expect(players[3].text).to eq player2.name
   end
 
-  it 'should be possible to add a new player' do
+  it 'should be possible to add a new player to the end of the ladder' do
     create_existing_players(2)
     visit '/'
+
     new_player_name = Faker::Name.name
+
     fill_in 'playerName', :with => new_player_name
     click_button('New Player')
     expect(page).to have_selector('#playerList li', :count => 3)
-    expect(page).to have_content new_player_name
+
+    expect(page.all('#playerList li').last.text).to eq new_player_name
   end
 end
 

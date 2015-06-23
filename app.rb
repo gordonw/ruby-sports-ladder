@@ -1,9 +1,9 @@
  require 'sinatra/base'
  require 'sinatra/activerecord'
- require './models/player'
- require './config/environments' #database configuration
+ require_relative 'models/player'
+ require_relative 'config/environments' #database configuration
 
-class SportsLadder < Sinatra::Application
+class App < Sinatra::Application
 
    set :root, File.dirname(__FILE__)
 
@@ -12,7 +12,7 @@ class SportsLadder < Sinatra::Application
    end
 
   get '/' do
-    @players = Player.all
+    @players = Player.order(rank: :asc)
     erb :index
   end
 
