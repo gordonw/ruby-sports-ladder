@@ -1,4 +1,6 @@
+require 'Faker'
+include Faker
 
-10.times {
-  Player.create( name: Faker.name)
+7.times {
+  Player.create( name: Name.name)
 }
