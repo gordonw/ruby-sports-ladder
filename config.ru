@@ -1,2 +1,2 @@
-  require_relative 'app/sports_ladder'
+  require_relative 'app.rb'
   run App
