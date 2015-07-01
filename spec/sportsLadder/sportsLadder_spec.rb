@@ -4,13 +4,13 @@ include Faker
 feature 'Sports Ladder Ladder Page' do
 
   def create_existing_players numberOfPlayers
-    numberOfPlayers.times do |rank|
-      Player.create(name: Name.name, rank: rank)
+    numberOfPlayers.times do |position|
+      Player.create(name: Name.name, position: position)
     end
   end
 
-  def create_player_with_rank(rank)
-    Player.create(name: Name.name, rank: rank)
+  def create_player_with_position(position)
+    Player.create(name: Name.name, position: position)
   end
 
   it 'should display a title' do
@@ -23,11 +23,11 @@ feature 'Sports Ladder Ladder Page' do
     expect(page).to have_selector('#pageHeading', :text => 'Pool Ladder')
   end
 
-  it 'should display a list of players ordered by rank' do
-    player1 = create_player_with_rank(3)
-    player2 = create_player_with_rank(4)
-    player3 = create_player_with_rank(1)
-    player4 = create_player_with_rank(2)
+  it 'should display a list of players ordered by position' do
+    player1 = create_player_with_position(3)
+    player2 = create_player_with_position(4)
+    player3 = create_player_with_position(1)
+    player4 = create_player_with_position(2)
 
     visit '/'
 

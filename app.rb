@@ -12,7 +12,7 @@ class App < Sinatra::Application
    end
 
   get '/' do
-    @players = Player.order(rank: :asc)
+    @players = Player.order(position: :asc)
     erb :index
   end
 

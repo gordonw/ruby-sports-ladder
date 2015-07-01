@@ -35,7 +35,8 @@ SET default_with_oids = false;
 
 CREATE TABLE players (
     id integer NOT NULL,
-    name character varying
+    name character varying,
+    "position" integer
 );
 
 
@@ -96,4 +97,8 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20150614182438');
+
+INSERT INTO schema_migrations (version) VALUES ('20150623123214');
+
+INSERT INTO schema_migrations (version) VALUES ('20150701111459');
 
