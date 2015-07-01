@@ -1,9 +1,16 @@
 require 'spec_helper_capybara'
+include Faker
 
 feature 'Sports Ladder Ladder Page' do
 
+  def create_existing_players numberOfPlayers
+    numberOfPlayers.times do |rank|
+      Player.create(name: Name.name, rank: rank)
+    end
+  end
+
   def create_player_with_rank(rank)
-    Player.create(name: Faker::Name.name, rank: rank)
+    Player.create(name: Name.name, rank: rank)
   end
 
   it 'should display a title' do
@@ -36,7 +43,7 @@ feature 'Sports Ladder Ladder Page' do
     create_existing_players(2)
     visit '/'
 
-    new_player_name = Faker::Name.name
+    new_player_name = Name.name
 
     fill_in 'playerName', :with => new_player_name
     click_button('New Player')
