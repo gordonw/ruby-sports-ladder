@@ -1,27 +1,43 @@
 require 'spec_helper_capybara'
 include Faker
 
+def show_ladder
+  visit "/ladder/#{@ladder.slug}"
+end
+
+def create_existing_players numberOfPlayers
+  numberOfPlayers.times do |position|
+    Player.create(name: Name.name, position: position)
+  end
+end
+
+def create_player_with_position(position)
+  player = Player.create(name: Name.name, position: position)
+  @ladder.players << player
+  player
+end
+
 feature 'Sports Ladder Ladder Page' do
 
-  def create_existing_players numberOfPlayers
-    numberOfPlayers.times do |position|
-      Player.create(name: Name.name, position: position)
-    end
-  end
-
-  def create_player_with_position(position)
-    Player.create(name: Name.name, position: position)
+  before(:each) do
+    @ladder = Ladder.create(
+        slug: Lorem.characters(5),
+        name: "#{Company.name} Sports Ladder",
+        description: Lorem.sentence(6)
+    )
   end
 
   it 'should display a title' do
-    visit '/'
-    expect(page).to have_title 'Pool Ladder'
+    show_ladder
+    expect(page).to have_title "Sports Ladder - #{@ladder.name}"
   end
 
+
   it 'should display a page heading' do
-    visit '/'
-    expect(page).to have_selector('#pageHeading', :text => 'Pool Ladder')
+    show_ladder
+    expect(page).to have_selector('#pageHeading', :text => @ladder.name)
   end
+
 
   it 'should display a list of players ordered by position' do
     player1 = create_player_with_position(3)
@@ -29,7 +45,7 @@ feature 'Sports Ladder Ladder Page' do
     player3 = create_player_with_position(1)
     player4 = create_player_with_position(2)
 
-    visit '/'
+    show_ladder
 
     players = page.all('#playerList li')
 
@@ -39,17 +55,16 @@ feature 'Sports Ladder Ladder Page' do
     expect(players[3].text).to eq player2.name
   end
 
-  it 'should be possible to add a new player to the end of the ladder' do
+
+  it 'should be possible to add a new player to the ladder' do
     create_existing_players(2)
-    visit '/'
+    show_ladder
 
     new_player_name = Name.name
 
     fill_in 'playerName', :with => new_player_name
     click_button('New Player')
     expect(page).to have_selector('#playerList li', :count => 3)
-
-    expect(page.all('#playerList li').last.text).to eq new_player_name
   end
 end
 

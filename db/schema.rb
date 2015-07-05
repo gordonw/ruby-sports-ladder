@@ -11,14 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701111459) do
+ActiveRecord::Schema.define(version: 20150702192920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "players", force: :cascade do |t|
-    t.string  "name"
-    t.integer "position"
+  create_table "ladders", force: :cascade do |t|
+    t.string   "slug"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  create_table "players", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "position",   default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "ladder_id"
+  end
+
+  add_index "players", ["ladder_id"], name: "index_players_on_ladder_id", using: :btree
+  add_index "players", ["position"], name: "index_players_on_position", using: :btree
 
 end

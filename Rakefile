@@ -10,5 +10,5 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :start do
   Rake::Task["db:reset"].invoke
-  sh "rackup -p 1234"
+  sh "rackup"
 end
