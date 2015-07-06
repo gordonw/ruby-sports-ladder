@@ -4,9 +4,22 @@ require_relative 'models/player'
 require_relative 'models/ladder'
 require_relative 'config/environments'
 
-class App < Sinatra::Application
+require 'sinatra/assetpack'
+
+class App < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
+
+  register Sinatra::AssetPack
+  assets do
+    serve '/bower_components', from: 'bower_components'
+    js :libs, [
+                '/bower_components/jquery/dist/jquery.js',
+            ]
+
+    js_compression :jsmin
+
+  end
 
   configure do
     enable :logging
@@ -18,16 +31,13 @@ class App < Sinatra::Application
   end
 
   get '/ladder/:ladder_slug' do |slug|
-    erb :show_ladder, :locals => {
-                        :ladder => (Ladder.find_by slug: slug),
-                        :players => (Player.ordered_by_position_asc)
-                    }
+    erb :show_ladder, :locals => { :ladder => (Ladder.find_by slug: slug) }
   end
 
   post '/ladder/:ladder_slug' do |slug|
 
     player = Player.new(params[:player])
-    player.ladder_id = Ladder.find_by( slug: slug).id
+    player.ladder_id = Ladder.find_by(slug: slug).id
 
     unless player.name.empty?
       unless player.save

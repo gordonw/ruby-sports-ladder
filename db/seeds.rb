@@ -4,14 +4,14 @@ include Faker
 sports = %w(Snooker Pool Golf Chess)
 
 8.times {
-  players = []
+  ladder = Ladder.create(
+      slug: Lorem.characters(5),
+      name: "#{Company.name} #{sports.sample} Ladder",
+      description: Lorem.sentence(6)
+  )
+
   rand(18).times {
-    players << Player.create(name: Name.name)
+    Player.create(name: Name.name, ladder_id: ladder.id)
   }
 
-  Ladder.create(slug: Lorem.characters(5),
-                name: "#{Company.name} #{sports.sample} Ladder",
-                description: Lorem.sentence(6),
-                players: players
-  )
 }

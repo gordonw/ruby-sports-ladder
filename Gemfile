@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
-gem "activerecord"
-gem 'activerecord-sortable'
-gem "sinatra-activerecord"
+gem 'activerecord'
+gem 'sinatra-activerecord'
 gem "pg"
+gem 'sinatra-assetpack'
 
 group :test, :development do
   gem 'capybara'

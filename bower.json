@@ -1,0 +1,21 @@
+{
+  "name": "ruby-sports-ladder",
+  "version": "0.0.1",
+  "homepage": "https://github.com/gordonw/ruby-sports-ladder",
+  "authors": [
+    "Gordon Whamond <gordon.whamond@sky.uk>"
+  ],
+  "description": "Sinatra application serving up a simple sports ladder",
+  "main": "app.rb",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.6"
+  }
+}

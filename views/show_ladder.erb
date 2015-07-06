@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <title>Sports Ladder - <%= ladder.name %></title>
+  <%= js :libs %>
+</head>
+<body>
+
+<h1 id="pageHeading"><%= ladder.name %></h1>
+
+<% if ladder.players.any? %>
+    <ol id="playerList">
+      <% ladder.players.order(position: :asc).each do |player| %>
+          <li><%= player.name %></li>
+      <% end %>
+    </ol>
+<% end %>
+
+<form action="" method="POST">
+  <label for="playerName">New Player:</label><input type="text" id="playerName" name="player[name]">
+  <input type="submit" value="New Player">
+</form>
+
+
+</body>
+</html>

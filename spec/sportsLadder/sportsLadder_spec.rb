@@ -7,14 +7,12 @@ end
 
 def create_existing_players numberOfPlayers
   numberOfPlayers.times do |position|
-    Player.create(name: Name.name, position: position)
+    Player.create(name: Name.name, position: position, ladder_id: @ladder.id)
   end
 end
 
 def create_player_with_position(position)
-  player = Player.create(name: Name.name, position: position)
-  @ladder.players << player
-  player
+  Player.create(name: Name.name, position: position, ladder_id: @ladder.id)
 end
 
 feature 'Sports Ladder Ladder Page' do
