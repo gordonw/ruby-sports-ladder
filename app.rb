@@ -30,6 +30,16 @@ class App < Sinatra::Base
     erb :index, :locals => { :ladders => (Ladder.order(name: :asc)) }
   end
 
+  post '/' do
+    ladder = Ladder.new(params[:ladder])
+    unless ladder.name.empty?
+      unless ladder.save
+        "Ladder did not save for some reason"
+      end
+    end
+    redirect "/"
+  end
+
   get '/ladder/:ladder_slug' do |slug|
     erb :show_ladder, :locals => { :ladder => (Ladder.find_by slug: slug) }
   end

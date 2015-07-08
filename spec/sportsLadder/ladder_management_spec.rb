@@ -1,31 +1,34 @@
 require 'spec_helper_capybara'
 include Faker
 
+def create_ladder slug, name, description = ''
+  Ladder.create(slug: slug, name: name, description: description)
+end
+
+def visit_sports_ladder
+  visit '/'
+end
+
 feature 'Sports Ladder Management Page' do
 
-  def create_ladder slug, name, description = ''
-    Ladder.create(slug: slug, name: name, description: description)
-  end
-
-
   it 'should display a title' do
-    visit '/'
+    visit_sports_ladder
     expect(page).to have_title 'Sports Ladder'
   end
 
 
   it 'should display a page heading' do
-    visit '/'
+    visit_sports_ladder
     expect(page).to have_selector('#pageHeading', :text => 'Sports Ladder')
   end
 
 
   it 'should display a list of existing ladders ordered alphabetically' do
-    second_ladder = create_ladder('slug1', 'B', 'Test ladder that is alphabetically second')
-    third_ladder = create_ladder('slug1', 'C', 'Test ladder that is alphabetically third')
-    first_ladder = create_ladder('slug1', 'A', 'Test ladder that is alphabetically first')
+    second_ladder = create_ladder(Lorem.characters(5), 'B', 'Test ladder that is alphabetically second')
+    third_ladder = create_ladder(Lorem.characters(5), 'C', 'Test ladder that is alphabetically third')
+    first_ladder = create_ladder(Lorem.characters(5), 'A', 'Test ladder that is alphabetically first')
 
-    visit '/'
+    visit_sports_ladder
 
     ladders = page.all('#ladderList li')
 
@@ -41,29 +44,27 @@ feature 'Sports Ladder Management Page' do
 
 
   it 'should be possible to select a specific ladder to view' do
-    player1 = Player.create(name: Name.name, position: 0)
-    player2 = Player.create(name: Name.name, position: 1)
+    ladder = Ladder.create(slug: Lorem.characters(10), name: Lorem.sentence(3))
 
-    puts player1.name
-    puts player2.name
-
-    ladder = Ladder.create(
-        slug: 'ladder1', name: 'A sports ladder',
-        players: [player1, player2]
-    )
-
-    visit '/'
-    page.find('a').click
+    visit_sports_ladder
+    page.click_link(ladder.name)
 
     expect(page).to have_title "Sports Ladder - #{ladder.name}"
-    expect(page).to have_selector('#pageHeading', :text => ladder.name)
+  end
 
-    players = page.all('#playerList li')
-    puts players[0].text
-    puts players[1].text
 
-    expect(players[0].text).to eq player1.name
-    expect(players[1].text).to eq player2.name
+  it 'should be possible to add a new ladder' do
+
+    create_ladder(Lorem.characters(5), Lorem.characters(10), Lorem.sentence(8))
+    create_ladder(Lorem.characters(5), Lorem.characters(10), Lorem.sentence(8))
+
+    visit_sports_ladder
+
+    new_ladder_name = Lorem.characters(10)
+
+    fill_in 'ladderName', :with => new_ladder_name
+    click_button('New Ladder')
+    expect(page).to have_selector('#ladderList li', :count => 3)
   end
 
 end
