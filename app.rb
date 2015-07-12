@@ -1,10 +1,9 @@
 require 'sinatra/base'
+require 'sinatra/assetpack'
 require 'sinatra/activerecord'
 require_relative 'models/player'
 require_relative 'models/ladder'
 require_relative 'config/environments'
-
-require 'sinatra/assetpack'
 
 class App < Sinatra::Base
 
@@ -14,7 +13,7 @@ class App < Sinatra::Base
   assets do
     serve '/bower_components', from: 'bower_components'
     js :libs, [
-                '/bower_components/jquery/dist/jquery.js',
+                '/bower_components/jquery/dist/jquery.js'
             ]
 
     js_compression :jsmin

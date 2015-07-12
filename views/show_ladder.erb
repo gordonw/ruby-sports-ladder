@@ -3,7 +3,6 @@
 <head>
   <meta charset='UTF-8'/>
   <title>Sports Ladder - <%= ladder.name %></title>
-  <%= js :libs %>
 </head>
 <body>
 
@@ -22,6 +21,33 @@
   <input type="submit" value="New Player">
 </form>
 
+<%= js :libs %>
+<script>
+    var winner = undefined;
 
+    function player_position(player) {
+        return $(player).index()
+    }
+
+    function winner_ranked_higher_than_loser(winner, loser) {
+        return player_position(winner) > player_position(loser)
+    }
+
+    function promotePlayer(winner, loser) {
+        if (winner_ranked_higher_than_loser(winner, loser)) {
+            $(loser).before(winner);
+        }
+    }
+
+    $("#playerList").find("li").click(function () {
+        if (typeof winner == "undefined") {
+            winner = this;
+        } else {
+            promotePlayer(winner, this);
+            winner = undefined;
+        }
+    });
+
+</script>
 </body>
 </html>

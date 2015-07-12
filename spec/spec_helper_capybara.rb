@@ -4,6 +4,10 @@ require_relative '../app'
 
 Capybara.app = App
 
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 RSpec.configure do |config|
@@ -11,7 +15,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.around(:each) do |example|
