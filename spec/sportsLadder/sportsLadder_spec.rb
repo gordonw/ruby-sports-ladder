@@ -15,7 +15,9 @@ def create_player_with_position(position)
   Player.create(name: Name.name, position: position, ladder_id: @ladder.id)
 end
 
+
 feature 'Sports Ladder Ladder Page' do
+
 
   before(:each) do
     @ladder = Ladder.create(
@@ -25,13 +27,7 @@ feature 'Sports Ladder Ladder Page' do
     )
   end
 
-
-  it 'should display a title' do
-    show_ladder
-    expect(page).to have_title "Sports Ladder - #{@ladder.name}"
-  end
-
-
+  
   it 'should display a page heading' do
     show_ladder
     expect(page).to have_selector('#pageHeading', :text => @ladder.name)

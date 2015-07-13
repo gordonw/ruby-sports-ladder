@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'compass'
 gem 'sinatra'
 gem 'activerecord'
 gem 'sinatra-activerecord'

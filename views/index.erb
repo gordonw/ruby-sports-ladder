@@ -3,21 +3,39 @@
 <head>
   <meta charset='UTF-8'/>
   <title>Sports Ladder</title>
+
+  <link rel="stylesheet" href="/stylesheets/app.css"/>
+  <%= js :modernizr %>
 </head>
 <body>
 
-<h1 id="pageHeading">Sports Ladder</h1>
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1 id="navHeading"><a href="#">Sports Ladder</a></h1>
+    </li>
+  </ul>
+</nav>
 
-<% if ladders.any? %>
-    <ul id="ladderList">
-      <% ladders.each do |ladder| %>
-          <li>
-            <a href="ladder/<%= ladder.slug %>"><%= ladder.name %></a>
-            <span><%= ladder.description %></span>
-          </li>
+<section role="main" class="scroll-container">
+  <div class="row">
+    <div class="small-10 columns">
+      <h1 id="pageHeading">Sports Ladder</h1>
+
+      <% if ladders.any? %>
+          <ul id="ladderList">
+            <% ladders.each do |ladder| %>
+                <li>
+                  <a href="ladder/<%= ladder.slug %>"><%= ladder.name %></a>
+                  <span><%= ladder.description %></span>
+                </li>
+            <% end %>
+          </ul>
       <% end %>
-    </ul>
-<% end %>
+    </div>
+  </div>
+</section>
+
 
 <form action="" method="POST">
   <label for="ladderName">New Ladder:</label><input type="text" id="ladderName" name="ladder[name]">

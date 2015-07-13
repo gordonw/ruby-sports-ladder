@@ -11,9 +11,16 @@ end
 
 feature 'Sports Ladder Management Page' do
 
+
   it 'should display a title' do
     visit_sports_ladder
     expect(page).to have_title 'Sports Ladder'
+  end
+
+
+  it 'should display a navigation heading' do
+    visit_sports_ladder
+    expect(page).to have_selector('#navHeading', :text => 'Sports Ladder')
   end
 
 

@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
+    "foundation": "zurb/bower-foundation",
     "jquery": ">=1.6"
   }
 }

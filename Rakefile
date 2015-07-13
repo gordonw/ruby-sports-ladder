@@ -9,6 +9,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :start do
   sh 'bower install'
+  sh 'compass compile'
   Rake::Task["db:reset"].invoke
   sh 'rackup'
 end
