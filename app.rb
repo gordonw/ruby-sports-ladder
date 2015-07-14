@@ -34,13 +34,17 @@ class App < Sinatra::Base
     enable :logging
   end
 
+
   get '/' do
     @players = Player.order(position: :asc)
     erb :index, :locals => { :ladders => (Ladder.order(name: :asc)) }
   end
 
+
   post '/' do
-    ladder = Ladder.new(params[:ladder])
+    ladder = Ladder.new(params[:ladder]).tap { |ladder|
+       ladder.slug = create_slug
+    }
     unless ladder.name.empty?
       unless ladder.save
         "Ladder did not save for some reason"
@@ -49,14 +53,18 @@ class App < Sinatra::Base
     redirect "/"
   end
 
+
   get '/ladder/:ladder_slug' do |slug|
     erb :show_ladder, :locals => { :ladder => (Ladder.find_by slug: slug) }
   end
 
+
   post '/ladder/:ladder_slug' do |slug|
 
-    player = Player.new(params[:player])
-    player.ladder_id = Ladder.find_by(slug: slug).id
+    player = Player.new(params[:player]).tap { |player|
+      player.ladder_id = Ladder.find_by(slug: slug).id
+    }
+
 
     unless player.name.empty?
       unless player.save
@@ -64,6 +72,11 @@ class App < Sinatra::Base
       end
     end
     redirect "/ladder/#{slug}"
+  end
+
+  def create_slug
+    require 'securerandom'
+    (SecureRandom.urlsafe_base64 7).upcase
   end
 
 end
