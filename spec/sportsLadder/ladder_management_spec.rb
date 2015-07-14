@@ -60,21 +60,23 @@ feature 'Sports Ladder Management Page' do
   end
 
 
-  it 'should be possible to add a ladder when other ladders exist' do
+  [0, 1, 10].each do |number_of_existing_ladders|
+    it 'should be possible to add a ladder' do
 
-    create_ladder(Lorem.characters(5), Lorem.characters(10), Lorem.sentence(4))
-    create_ladder(Lorem.characters(5), Lorem.characters(10), Lorem.sentence(4))
+      number_of_existing_ladders.times do
+        create_ladder(Lorem.characters(5), Lorem.characters(10), Lorem.sentence(4))
+      end
 
-    visit_sports_ladder
+      visit_sports_ladder
 
-    new_ladder_name = Lorem.characters(10)
-    new_ladder_description = Lorem.sentence(5)
+      new_ladder_name = Lorem.characters(10)
+      new_ladder_description = Lorem.sentence(5)
 
-    fill_in 'ladderName', :with => new_ladder_name
-    fill_in 'ladderDescription', :with => new_ladder_description
-    click_button('Create ladder')
-    expect(page).to have_selector('#ladderList li.ladder', :count => 3)
+      fill_in 'ladderName', :with => new_ladder_name
+      fill_in 'ladderDescription', :with => new_ladder_description
+      click_button('Create ladder')
+      expect(page).to have_selector('#ladderList li.ladder', :count => number_of_existing_ladders + 1)
+    end
   end
-
 end
 
