@@ -3,7 +3,7 @@ include Faker
 
 sports = %w(Snooker Pool Golf Chess)
 
-8.times {
+3.times {
   ladder = Ladder.create(
       slug: Lorem.characters(5),
       name: "#{Company.name} #{sports.sample} Ladder",

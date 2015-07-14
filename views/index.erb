@@ -23,24 +23,39 @@
       <h1 id="pageHeading">Sports Ladder</h1>
 
       <% if ladders.any? %>
-          <ul id="ladderList">
+          <ul id="ladderList" class="no-bullet">
             <% ladders.each do |ladder| %>
-                <li>
-                  <a href="ladder/<%= ladder.slug %>"><%= ladder.name %></a>
-                  <span><%= ladder.description %></span>
+                <li class="panel ladder">
+                  <dl>
+                    <dt><a href="ladder/<%= ladder.slug %>"><%= ladder.name %></a></dt>
+                    <dd><span><%= ladder.description %></span></dd>
+                  </dl>
                 </li>
             <% end %>
+            <li class="panel">
+              <form action="" method="POST">
+                <dl>
+                  <dt>
+                    <label>Ladder name:
+                      <input type="text" id="ladderName" name="ladder[name]">
+                    </label>
+                  </dt>
+                  <dd>
+                    <label>Description:
+                      <input type="text" id="ladderDescription" name="ladder[description]">
+                    </label>
+                  </dd>
+                  <dd><input type="submit" class="button" value="Create ladder"></dd>
+                </dl>
+              </form>
+            </li>
           </ul>
       <% end %>
+
     </div>
   </div>
 </section>
 
-
-<form action="" method="POST">
-  <label for="ladderName">New Ladder:</label><input type="text" id="ladderName" name="ladder[name]">
-  <input type="submit" value="New Ladder">
-</form>
 
 </body>
 </html>

@@ -27,7 +27,7 @@ feature 'Sports Ladder Ladder Page' do
     )
   end
 
-  
+
   it 'should display a page heading' do
     show_ladder
     expect(page).to have_selector('#pageHeading', :text => @ladder.name)
