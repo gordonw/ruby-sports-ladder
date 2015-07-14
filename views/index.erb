@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='UTF-8'/>
-  <title>Sports Ladder</title>
-
-  <link rel="stylesheet" href="/stylesheets/app.css"/>
-  <%= js :modernizr %>
-</head>
-<body>
-
-<nav class="top-bar" data-topbar role="navigation">
-  <ul class="title-area">
-    <li class="name">
-      <h1 id="navHeading"><a href="#">Sports Ladder</a></h1>
-    </li>
-  </ul>
-</nav>
-
 <section role="main" class="scroll-container">
   <div class="row">
     <div class="small-10 columns">
       <h1 id="pageHeading">Sports Ladder</h1>
       <ul id="ladderList" class="no-bullet">
         <% if ladders.any? %>
-
             <% ladders.each do |ladder| %>
                 <li class="panel ladder">
                   <dl>
@@ -51,12 +31,6 @@
           </form>
         </li>
       </ul>
-
-
     </div>
   </div>
 </section>
-
-
-</body>
-</html>
